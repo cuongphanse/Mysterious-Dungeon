@@ -56,5 +56,5 @@
         "temp/": true,
         "Temp/": true
     },
-    "dotnet.defaultSolution": "Mysterious Dungeon.sln"
+    "dotnet.defaultSolution": "Mysterious-Dungeon.sln"
 }

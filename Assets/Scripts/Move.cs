@@ -32,6 +32,7 @@ public class Move : MonoBehaviour
         PlayerMove();
         CheckIsGround();
         PlayerFlip();
+        PlaterAttack();   
     }
 
     public void CheckIsGround()
@@ -42,9 +43,20 @@ public class Move : MonoBehaviour
     {
         xInput = Input.GetAxisRaw("Horizontal");
 
-        if (Input.GetButtonDown("Jump"))
+        if (Input.GetKeyDown(KeyCode.K))
         {
             Jump();
+        }
+    }
+
+    private void PlaterAttack()
+    {
+        if(Input.GetKeyDown(KeyCode.J) && rb.velocity.y == 0)
+        {
+            anima.SetBool("isAttack",true);    
+        }else if(Input.GetKeyUp(KeyCode.J))
+        {
+            anima.SetBool("isAttack",false);    
         }
     }
 

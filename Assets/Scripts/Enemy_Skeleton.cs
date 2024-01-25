@@ -25,7 +25,7 @@ public class Enemy_Skeleton : Entity
         {
             if (isPlayerDetected.distance > 1)
             {
-                rb.velocity = new Vector2(moveSpeed * facingDir *3f, rb.velocity.y);
+                rb.velocity = new Vector2(moveSpeed * facingDir *2f, rb.velocity.y);
                 Debug.Log("m xong roi");
                 isActtacking = false;
             }

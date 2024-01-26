@@ -41,3 +41,12 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: background
+    uniqueID: 1458014609
+    locked: 0
+  - name: TitleMap
+    uniqueID: 1585615227
+    locked: 0
+  - name: player
+    uniqueID: 1649127917
+    locked: 0

@@ -41,3 +41,18 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Background
+    uniqueID: 3117448211
+    locked: 0
+  - name: Decor
+    uniqueID: 481117325
+    locked: 0
+  - name: Claim
+    uniqueID: 3842760257
+    locked: 0
+  - name: Enimies
+    uniqueID: 2012751403
+    locked: 0
+  - name: Player
+    uniqueID: 3650464505
+    locked: 0

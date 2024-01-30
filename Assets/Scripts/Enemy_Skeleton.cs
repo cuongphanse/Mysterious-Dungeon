@@ -32,13 +32,18 @@ public class Enemy_Skeleton : Entity
             else
             {
                 isActtacking = true;
+                rb.velocity = new Vector2(0f, 0f);
                 Debug.Log("m diii");
             }
+        } else {
+             isActtacking= false;
+            rb.velocity = new Vector2(moveSpeed * facingDir, rb.velocity.y);
+             Debug.Log("out range");
         }
 
         if (!isGround || isWallDetected)
             Flip();
-        Movememt();
+            Movememt();
     }
 
     private void Movememt()

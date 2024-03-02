@@ -4,6 +4,9 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    [Header("Attack Info")]
+    public Vector2[] attackMovement;
+    public bool isBusy;
     [Header("Move Info")]
     public float moveSpeed = 12f;
     public float jumpForce = 20f;
@@ -32,6 +35,9 @@ public class Player : MonoBehaviour
     public PlayerJumpState jumpState { get; private set; }
     public PlayerAirState airState { get; private set; }
     public PlayerDashState dashState { get; private set; }
+    public PlayerWallSideState wallSideState { get; private set; }
+    public PlayerWallJumpState wallJumpState { get; private set; }
+    public PlayerPrimaryAttackState primaryAttackState { get; private set; }
     #endregion
     public void Awake()
     {
@@ -41,6 +47,9 @@ public class Player : MonoBehaviour
         jumpState = new PlayerJumpState(this, stateMachine, "Jump");
         airState = new PlayerAirState(this, stateMachine, "Jump");
         dashState = new PlayerDashState(this, stateMachine, "Dash");
+        wallSideState = new PlayerWallSideState(this, stateMachine, "WallSide");
+        wallJumpState = new PlayerWallJumpState(this, stateMachine, "Jump");
+        primaryAttackState = new PlayerPrimaryAttackState(this, stateMachine, "Attack");
     }
     private void Start()
     {
@@ -54,8 +63,13 @@ public class Player : MonoBehaviour
         stateMachine.currentState.Update();
         CheckForDashInput();
     }
+    public void AnimationTrigger()=> stateMachine.currentState.AnimationFinishTrigger();
     public void CheckForDashInput()
     {
+        if(IsWallDetected())
+        {
+            return;
+        }
         dashTimer -= Time.deltaTime;
         if (Input.GetKeyDown(KeyCode.L) && dashTimer < 0)
         {
@@ -68,12 +82,20 @@ public class Player : MonoBehaviour
             stateMachine.ChangeState(dashState);
         }
     }
+    public IEnumerator BusyFor(float _secconds)
+    {
+        isBusy = true;
+        yield return new WaitForSeconds(_secconds);
+        isBusy = false;
+    }
+    public void ZeroVelocity() => rb.velocity = new Vector2(0,0);
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
         rb.velocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
     }
     public bool IsGroundedDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundDistance, whatIsGround);
+    public bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallDistance, whatIsGround);
     private void OnDrawGizmos()
     {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundDistance));

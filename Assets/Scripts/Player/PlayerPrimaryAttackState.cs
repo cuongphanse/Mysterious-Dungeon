@@ -14,6 +14,7 @@ public class PlayerPrimaryAttackState : PlayerState
     public override void Enter()
     {
         base.Enter();
+        xInput = 0; // need this to fix bug on attack;
         float attackDir = player.facingDir;
         if(xInput != 0)
         {

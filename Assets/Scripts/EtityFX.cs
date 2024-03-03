@@ -21,4 +21,20 @@ public class EtityFX : MonoBehaviour
         yield return new WaitForSeconds(.2f);
         sr.material = originMat;
     }
+
+    public void RedColorBlink()
+    {
+        if(sr.color != Color.white)
+        {
+            sr.color = Color.white;
+        }else
+        {
+            sr.color = Color.red;
+        }
+    }
+    public void CancelRedBlink()
+    {
+        CancelInvoke();
+        sr.color = Color.white ;
+    }
 }

@@ -12,6 +12,7 @@ public class Enemy : Entity
     [Header("Attack info")]
     public float attackDistance;
     public float attackCooldown;
+    public float battleTime;
     [HideInInspector]public float lastTimeAttacked;
     public EnemyStateMachine stateMachine { get; private set; }
 

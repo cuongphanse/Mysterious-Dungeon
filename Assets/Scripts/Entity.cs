@@ -7,8 +7,11 @@ public class Entity : MonoBehaviour
     #region Components
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
+    public EtityFX fx { get; private set; }
     #endregion
     [Header("Check Info")]
+    public Transform attackCheck;
+    public float attackCheckRadius;
     [SerializeField] protected Transform groundCheck;
     [SerializeField] protected float groundDistance;
     [SerializeField] protected Transform wallCheck;
@@ -22,6 +25,7 @@ public class Entity : MonoBehaviour
     }
     protected virtual void Start()
     {
+        fx = GetComponentInChildren<EtityFX>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
     }
@@ -30,6 +34,11 @@ public class Entity : MonoBehaviour
     {
         
     }
+
+    public void Damage()
+    {
+        Debug.Log(gameObject.name + "Attack");
+    }
     #region Collision
     public virtual bool IsGroundedDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundDistance, whatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallDistance, whatIsGround);
@@ -37,6 +46,7 @@ public class Entity : MonoBehaviour
     {
         Gizmos.DrawLine(groundCheck.position, new Vector3(groundCheck.position.x, groundCheck.position.y - groundDistance));
         Gizmos.DrawLine(wallCheck.position, new Vector3(wallCheck.position.x + wallDistance, wallCheck.position.y));
+        Gizmos.DrawWireSphere(attackCheck.position, attackCheckRadius);
     }
     #endregion
     #region Flip

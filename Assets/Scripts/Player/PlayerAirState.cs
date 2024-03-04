@@ -21,6 +21,7 @@ public class PlayerAirState : PlayerState
     public override void Update()
     {
         base.Update();
+        player.CheckForDashInput();
         if (player.IsWallDetected())
         {
             stateMachine.ChangeState(player.wallSideState);

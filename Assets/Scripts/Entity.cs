@@ -8,6 +8,7 @@ public class Entity : MonoBehaviour
     public Animator anim { get; private set; }
     public Rigidbody2D rb { get; private set; }
     public EtityFX fx { get; private set; }
+    public SpriteRenderer sr { get; private set; }
     #endregion
     [Header("Knockback Info")]
     [SerializeField] protected Vector2 kockbackDirection;
@@ -29,6 +30,7 @@ public class Entity : MonoBehaviour
     }
     protected virtual void Start()
     {
+        sr = GetComponentInChildren<SpriteRenderer>();
         fx = GetComponent<EtityFX>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
@@ -51,6 +53,14 @@ public class Entity : MonoBehaviour
         rb.velocity = new Vector2(kockbackDirection.x * -facingDir, kockbackDirection.y);
         yield return new WaitForSeconds(knockbackDuration);
         isKnockback = false;
+    }
+
+    public void MakeTransprent(bool _transprent)
+    {
+        if (_transprent)
+            sr.color = Color.clear;
+        else
+            sr.color = Color.white;
     }
     #region Collision
     public virtual bool IsGroundedDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundDistance, whatIsGround);

@@ -21,6 +21,11 @@ public class PlayerGroundedState : PlayerState
     public override void Update()
     {
         base.Update();
+        player.CheckForDashInput();
+        if (Input.GetKeyDown(KeyCode.I))
+        {
+            stateMachine.ChangeState(player.blackHoleState);
+        }
         if(Input.GetKeyDown(KeyCode.U) && HasNoSword()) 
         {
             stateMachine.ChangeState(player.aimSwordState);

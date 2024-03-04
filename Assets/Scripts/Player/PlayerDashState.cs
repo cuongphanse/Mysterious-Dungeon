@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerDashState : PlayerState
@@ -11,7 +9,7 @@ public class PlayerDashState : PlayerState
     public override void Enter()
     {
         base.Enter();
-        player.skill.clone.CreateClone(player.transform);
+        player.skill.clone.CreateClone(player.transform, Vector2.zero);
         stateTimer = player.dashDuration;
     }
 
@@ -25,12 +23,13 @@ public class PlayerDashState : PlayerState
     {
         base.Update();
 
-        if(!player.IsGroundedDetected() && player.IsWallDetected() )
+        if (!player.IsGroundedDetected() && player.IsWallDetected())
         {
             stateMachine.ChangeState(player.wallSideState);
         }
         player.SetVelocity(player.dashSpeed * player.dashDir, 0);
-        if (stateTimer < 0) {
+        if (stateTimer < 0)
+        {
             stateMachine.ChangeState(player.idleState);
         }
     }

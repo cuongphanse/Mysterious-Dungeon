@@ -9,6 +9,10 @@ public class Entity : MonoBehaviour
     public Rigidbody2D rb { get; private set; }
     public EtityFX fx { get; private set; }
     public SpriteRenderer sr { get; private set; }
+
+    public CharacterStats stats { get; private set; }
+
+    public CapsuleCollider2D cd { get; private set; }
     #endregion
     [Header("Knockback Info")]
     [SerializeField] protected Vector2 kockbackDirection;
@@ -34,6 +38,8 @@ public class Entity : MonoBehaviour
         fx = GetComponent<EtityFX>();
         rb = GetComponent<Rigidbody2D>();
         anim = GetComponentInChildren<Animator>();
+        stats = GetComponent<CharacterStats>();
+        cd = GetComponent<CapsuleCollider2D>();
     }
 
     protected virtual void Update()
@@ -41,7 +47,7 @@ public class Entity : MonoBehaviour
         
     }
 
-    public void Damage()
+    public void DamageEffect()
     {
         fx.StartCoroutine("FlashFX");
         StartCoroutine("HitKnockback");
@@ -106,4 +112,9 @@ public class Entity : MonoBehaviour
         FlipController(_xVelocity);
     }
     #endregion
+
+    public virtual void Die()
+    {
+
+    }
 }

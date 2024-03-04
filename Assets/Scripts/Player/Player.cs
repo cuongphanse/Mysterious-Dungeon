@@ -15,10 +15,13 @@ public class Player : Entity
     [Header("Dash Info")]
     public float dashSpeed = 30f;
     public float dashDuration = 0.5f;
+    public float returnImpact;
     public float dashDir {  get; private set; }
 
 
     public SkillManager skill {  get; private set; }
+
+    public GameObject sword; /*{ get; private set; }*/
     #region State
     public PlayerStateMachine stateMachine {  get; private set; }
     public PlayerIdleState idleState { get; private set; }
@@ -61,6 +64,17 @@ public class Player : Entity
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
+    }
+
+    public void AssignNewSword(GameObject _newSword)
+    {
+        sword = _newSword;
+    }
+
+    public void CatchTheSword()
+    {
+        stateMachine.ChangeState(catchSwordState);
+        Destroy(sword);
     }
     public void AnimationTrigger()=> stateMachine.currentState.AnimationFinishTrigger();
     public void CheckForDashInput()

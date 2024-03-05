@@ -67,6 +67,11 @@ public class Player : Entity
     {
         base.Update();
         stateMachine.currentState.Update();
+
+        if (Input.GetKeyDown(KeyCode.F)) 
+        {
+            skill.crystal.CanUseSkill();
+        }
     }
 
     public void AssignNewSword(GameObject _newSword)

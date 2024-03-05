@@ -4,12 +4,6 @@ using UnityEngine;
 
 public class Player : Entity
 {
-    [SerializeField]
-    public PlayerInfo playerInfo;
-
-    [SerializeField]
-    public GameObject questionAsk;
-    public int Coin;    
     [Header("Attack Info")]
     public Vector2[] attackMovement;
     public float counterAttackDuration = .2f;
@@ -67,7 +61,6 @@ public class Player : Entity
         base.Start();
         stateMachine.Initialize(idleState);
         skill = SkillManager.instance;
-        this.Coin = playerInfo.Coin;
     }
 
     protected override void Update()
@@ -117,23 +110,4 @@ public class Player : Entity
         base.Die();
         stateMachine.ChangeState(deadState); 
     }
-
-    #region takeItem
-    public void OnTriggerEnter2D(Collider2D other)
-    {
-        Debug.Log("trigger");
-        Debug.Log("Tag " + other.tag);
-        if (other.tag == "Coin")
-        {
-            Coin += 200;
-            playerInfo.Coin = Coin;
-        }
-        else if (other.tag == "Question-Items")
-        {
-            stateMachine.Initialize(idleState);
-            questionAsk.SetActive(true);
-        }
-    }
-
-    #endregion
 }

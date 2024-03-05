@@ -3,7 +3,9 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Coin
+  - Question-Items
   layers:
   - Default
   - TransparentFX
@@ -13,7 +15,11 @@ TagManager:
   - UI
   - Player
   - Enemy
+<<<<<<< Updated upstream
   - Sword
+=======
+  - GameSetting
+>>>>>>> Stashed changes
   - 
   - 
   - 
@@ -64,4 +70,10 @@ TagManager:
     locked: 0
   - name: Player
     uniqueID: 595302519
+    locked: 0
+  - name: Question
+    uniqueID: 1236272415
+    locked: 0
+  - name: GameSetting
+    uniqueID: 850615329
     locked: 0

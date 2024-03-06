@@ -75,7 +75,18 @@ public class Enemy : Entity
         }
         return false;
     }
+    public override void SlowEntityFx(float _slowPercentage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1- _slowPercentage);
+        anim.speed = anim.speed *(1- _slowPercentage);
 
+        Invoke("ReturnDefaultSpeed", _slowDuration);
+    }
+    public override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+    }
     public virtual void OpenCounterAttackWindow()
     {
         canBeStunned = true;

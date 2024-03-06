@@ -80,7 +80,7 @@ public class BlackHole_Skill_Controller : MonoBehaviour
         if(playerCanDisapear)
         {
             playerCanDisapear = false;
-            PlayerManager.instance.player.MakeTransprent(true);
+            PlayerManager.instance.player.fx.MakeTransprent(true);
         }
         cloneAttackReleased = true;
         canCreateHotKeys = false;

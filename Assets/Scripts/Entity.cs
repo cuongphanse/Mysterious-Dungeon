@@ -29,7 +29,7 @@ public class Entity : MonoBehaviour
     public int facingDir { get; private set; } = 1;
     protected bool facingRight = true;
 
-    //public System.Action 
+    public System.Action onFlipeed;
     protected virtual void Awake()
     {
         
@@ -49,11 +49,19 @@ public class Entity : MonoBehaviour
         
     }
 
-    public void DamageEffect()
+    public virtual void SlowEntityFx(float _slowPercentage, float _slowDuration)
     {
-        fx.StartCoroutine("FlashFX");
+
+    }
+
+    public virtual void ReturnDefaultSpeed()
+    {
+        anim.speed = 1;
+    }
+
+    public void DamageImpact()
+    {
         StartCoroutine("HitKnockback");
-        Debug.Log(gameObject.name + "Attack");
     }
     public virtual IEnumerator HitKnockback()
     {
@@ -63,13 +71,7 @@ public class Entity : MonoBehaviour
         isKnockback = false;
     }
 
-    public void MakeTransprent(bool _transprent)
-    {
-        if (_transprent)
-            sr.color = Color.clear;
-        else
-            sr.color = Color.white;
-    }
+
     #region Collision
     public virtual bool IsGroundedDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundDistance, whatIsGround);
     public virtual bool IsWallDetected() => Physics2D.Raycast(wallCheck.position, Vector2.right * facingDir, wallDistance, whatIsGround);
@@ -86,6 +88,9 @@ public class Entity : MonoBehaviour
         facingDir = facingDir * -1;
         facingRight = !facingRight;
         transform.Rotate(0, 180, 0);
+
+        if (onFlipeed != null)
+            onFlipeed();
     }
     public virtual void FlipController(float _x)
     {

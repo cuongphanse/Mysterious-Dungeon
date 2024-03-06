@@ -10,12 +10,16 @@ public class Player : Entity
     
     public bool isBusy {  get; private set; }
     [Header("Move Info")]
+    public float returnImpact;
     public float moveSpeed = 12f;
     public float jumpForce = 20f;
+    private float defaultJumpForce;
+    private float defaultMoveSpeed;
+
     [Header("Dash Info")]
     public float dashSpeed = 30f;
     public float dashDuration = 0.5f;
-    public float returnImpact;
+    private float defaultDashSpeed;
     public float dashDir {  get; private set; }
 
 
@@ -61,6 +65,10 @@ public class Player : Entity
         base.Start();
         stateMachine.Initialize(idleState);
         skill = SkillManager.instance;
+
+        defaultMoveSpeed = moveSpeed;
+        defaultJumpForce = jumpForce;
+        defaultDashSpeed = dashSpeed;
     }
 
     protected override void Update()
@@ -79,7 +87,22 @@ public class Player : Entity
         sword = _newSword;
     }
 
+    public override void SlowEntityFx(float _slowPercentage, float _slowDuration)
+    {
+        moveSpeed = moveSpeed * (1 - _slowPercentage);
+        jumpForce = jumpForce * (1 - _slowPercentage);
+        dashSpeed = dashSpeed * (1 - _slowPercentage);
+        anim.speed = anim.speed * (1 - _slowPercentage);
 
+        Invoke("ReturnDefaultSpeed", _slowDuration);
+    }
+    public override void ReturnDefaultSpeed()
+    {
+        base.ReturnDefaultSpeed();
+        moveSpeed = defaultMoveSpeed;
+        jumpForce = defaultJumpForce;
+        dashSpeed = defaultDashSpeed;
+    }
     public void CatchTheSword()
     {
         stateMachine.ChangeState(catchSwordState);

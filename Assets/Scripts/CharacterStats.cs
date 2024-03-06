@@ -5,20 +5,19 @@ using UnityEngine;
 
 public class CharacterStats : MonoBehaviour
 {
-    //[Header("Major stats")]
-    //public Stat strengh; // 1 point increate damage
-    //public Stat agility; //1 point increate evasion
-    //public Stat intelligence; //1 point increate magic
-    //public Stat vitality; //1 point increate health;s
+    [Header("Major stats")]
+    public Stat strengh; // 1 point increate damage
+    public Stat agility; //1 point increate evasion
+    public Stat intelligence; //1 point increate magic
+    public Stat vitality; //1 point increate health;s
 
-    //[Header("Major stats")]
-    //public Stat maxHealth; 
-    //public Stat armor;
-    //public Stat evasion;
-
-    public Stat strengh;
-    public Stat damage;
+    [Header("Major stats")]
     public Stat maxHealth;
+    public Stat armor;
+    public Stat evasion;
+
+
+    public Stat damage;
 
 
     [SerializeField] private int currentHealth;

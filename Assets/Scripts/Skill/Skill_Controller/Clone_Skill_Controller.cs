@@ -11,6 +11,9 @@ public class Clone_Skill_Controller : MonoBehaviour
     [SerializeField] private Transform attackCheck;
     [SerializeField] private float attackCheckRadius = .8f;
     private Transform closestEnemy;
+    private bool canDulicateClone;
+    private int facingDir = 1;
+    private float chanceToDuplicate;
 
     private void Awake()
     {
@@ -29,7 +32,7 @@ public class Clone_Skill_Controller : MonoBehaviour
             }
         }
     }
-    public void SetupClone(Transform _newTransform,float _cloneduration, bool _canAttack, Vector3 _offset, Transform _closestEnemy)
+    public void SetupClone(Transform _newTransform,float _cloneduration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate, float _changeToDuplicate)
     {
         if(_canAttack)
         {
@@ -38,6 +41,8 @@ public class Clone_Skill_Controller : MonoBehaviour
         transform.position = _newTransform.position + _offset;
         cloneTimer = _cloneduration;
         closestEnemy = _closestEnemy;
+        canDulicateClone = _canDuplicate;
+        chanceToDuplicate = _changeToDuplicate;
         FaceClosestTarget();
     }
     public void AnimationTrigger()
@@ -55,6 +60,16 @@ public class Clone_Skill_Controller : MonoBehaviour
                 hit.GetComponent<Enemy>().DamageEffect();
                 EnemyStat _target = hit.GetComponent<EnemyStat>();
                 PlayerManager.instance.player.stats.DoDamage(_target);
+
+                if (canDulicateClone)
+                {
+                    if(Random.Range(0, 100) < chanceToDuplicate)
+                    {
+                        
+                        SkillManager.instance.clone.CreateClone(hit.transform, new Vector3(2f * facingDir, 0));
+                    }
+                }
+
             }
         }
     }
@@ -65,6 +80,7 @@ public class Clone_Skill_Controller : MonoBehaviour
         {
             if(transform.position.x > closestEnemy.position.x)
             {
+                facingDir = -1;
                 transform.Rotate(0, 180, 0);
             }
         }

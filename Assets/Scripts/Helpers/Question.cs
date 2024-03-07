@@ -56,7 +56,7 @@ public class Question : MonoBehaviour
     {
         playerInfo.Coin -= 100;
         question.SetActive(false); 
-      questionItem.SetActive(false);
+        questionItem.SetActive(false);
         // an form
     }
 

@@ -15,6 +15,8 @@ public class ItemData_Equipment : ItemData
 {
     public EquipmentType equipmentType;
 
+    public ItemEffect[] itemEffects;
+
     [Header("Major stats")]
     public int strengh; // 1 point increate damage
     public int agility; //1 point increate critrate
@@ -62,6 +64,13 @@ public class ItemData_Equipment : ItemData
         playerStat.lightningDamage.AddModifier(lightningDamage);
     }
 
+    public void ExecuteItemEffect()
+    {
+        foreach(var item in itemEffects)
+        {
+            item.ExecuteEffect();
+        }
+    }
     public void RemoveModifiter() 
     {
         PlayerStat playerStat = PlayerManager.instance.player.GetComponent<PlayerStat>();

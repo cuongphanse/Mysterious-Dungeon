@@ -45,7 +45,7 @@ public class CharacterStats : MonoBehaviour
 
     [SerializeField] private float alimentDuration = 2;
 
-    private bool isDead;
+    public bool isDead {  get; private set; }
 
     public System.Action onHealthChanged;
     protected virtual void Start()

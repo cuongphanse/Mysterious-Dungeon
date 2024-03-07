@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System.Diagnostics;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -36,7 +35,7 @@ public class Enemy : Entity
         base.Update();
         stateMachine.currentState.Update();
         
-
+        //Debug.Log(isPlayerDetected().collider.gameObject.name + "I SEE");
     }
 
     public virtual void AssignLastAnimName(string _animBoolName)

@@ -8,10 +8,12 @@ public class MenuBehavior : MonoBehaviour
 {
     [SerializeField]
     public GameObject pauseMenu;
+    public GameObject menuCraft;
     public static bool isPaused = false;
+    public static bool isCraft = false;
     // Start is called before the first frame update
 
-    
+
     // Update is called once per frame
     void Update()
     {
@@ -26,8 +28,30 @@ public class MenuBehavior : MonoBehaviour
                 PauseGame();
             }
         }
+        else if (Input.GetKeyDown(KeyCode.B))
+        {
+            if (isCraft)
+            {
+                HideCraftMenu();
+
+            }
+            else
+            {
+                DisplayCraftMenu();
+            }
+        }
     }
-   
+
+    public void HideCraftMenu()
+    {
+        menuCraft.SetActive(false);
+        isCraft = false;
+    }
+    public void DisplayCraftMenu()
+    {
+        menuCraft.SetActive(true);
+        isCraft = true;
+    }
     public void ResumeGame()
     {
         pauseMenu.SetActive(false);
@@ -41,15 +65,15 @@ public class MenuBehavior : MonoBehaviour
         isPaused = true;
     }
 
-     public void startGame()
+    public void startGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
     public void exitGame()
     {
         Application.Quit();
     }
-    
+
     public void GoToMainMenu()
     {
         Time.timeScale = 1f;

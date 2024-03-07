@@ -20,12 +20,20 @@ public class Question : MonoBehaviour
     {
 
     }
+     public void OnTriggerEnter2D(Collider2D other)
+    {
+        if (other.tag == "Player")
+        {
+            questionCheck.SetActive(true);
+        } 
+    }
 
     public void acceptedAnswer()
     {
         questionCheck.SetActive(false);
         question.SetActive(true);
-         MenuBehavior.isPaused = true;
+         playerInfo.Coin += 100;
+        MenuBehavior.isPaused = true;
     }
 
     public void rejectedAnswer()
@@ -39,11 +47,17 @@ public class Question : MonoBehaviour
     public void correctAnswer()
     {
         playerInfo.Coin += 100;
+        question.SetActive(false);
+           questionItem.SetActive(false);
+        // an form.
     }
 
     public void incorrectAnswer()
     {
         playerInfo.Coin -= 100;
+        question.SetActive(false); 
+      questionItem.SetActive(false);
+        // an form
     }
 
 }

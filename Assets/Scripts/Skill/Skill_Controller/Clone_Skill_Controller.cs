@@ -65,8 +65,7 @@ public class Clone_Skill_Controller : MonoBehaviour
                 if (canDulicateClone)
                 {
                     if(Random.Range(0, 100) < chanceToDuplicate)
-                    {
-                        
+                    {                     
                         SkillManager.instance.clone.CreateClone(hit.transform, new Vector3(2f * facingDir, 0));
                     }
                 }
@@ -75,14 +74,15 @@ public class Clone_Skill_Controller : MonoBehaviour
         }
     }
     public void FaceClosestTarget()
-    {       
-
-        if(closestEnemy != null)
+    {
+        if (closestEnemy != null)
         {
             if(transform.position.x > closestEnemy.position.x)
             {
+                Debug.Log("Atasdfas");
                 facingDir = -1;
                 transform.Rotate(0, 180, 0);
+               
             }
         }
     }

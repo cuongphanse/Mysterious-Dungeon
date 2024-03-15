@@ -38,10 +38,11 @@ public class EtityFX : MonoBehaviour
 
     public void RedColorBlink()
     {
-        if(sr.color != Color.white)
+        if (sr.color != Color.white)
         {
             sr.color = Color.white;
-        }else
+        }
+        else
         {
             sr.color = Color.red;
         }
@@ -49,7 +50,7 @@ public class EtityFX : MonoBehaviour
     public void CancelColorChange()
     {
         CancelInvoke();
-        sr.color = Color.white ;
+        sr.color = Color.white;
     }
     public void IgniteFxFor(float _seconds)
     {
@@ -69,7 +70,7 @@ public class EtityFX : MonoBehaviour
     }
     private void IgniteColorFx()
     {
-        if(sr.color != igniteColor[0]) 
+        if (sr.color != igniteColor[0])
             sr.color = igniteColor[0];
         else
             sr.color = igniteColor[1];

@@ -45,7 +45,7 @@ public class CharacterStats : MonoBehaviour
 
     [SerializeField] private float alimentDuration = 2;
 
-    public bool isDead {  get; private set; }
+    public bool isDead { get; private set; }
 
     public System.Action onHealthChanged;
     protected virtual void Start()
@@ -83,7 +83,7 @@ public class CharacterStats : MonoBehaviour
     {
         if (igniteDamageTimer < 0)
         {
-            
+
             DescreaseHealthBy(igniteDamage);
             if (currentHealth < 0 && !isDead)
                 Die();
@@ -100,7 +100,7 @@ public class CharacterStats : MonoBehaviour
         {
             totalDamage = CalculateCriticalDamage(totalDamage);
         }
-           
+
         totalDamage = CheckTargetArmor(_targetStats, totalDamage);
 
         //DoMagicalDamage(_targetStats);
@@ -125,7 +125,7 @@ public class CharacterStats : MonoBehaviour
     {
         currentHealth -= _damage;
 
-        if(onHealthChanged != null)
+        if (onHealthChanged != null)
             onHealthChanged();
     }
     protected virtual void Die()
@@ -138,7 +138,7 @@ public class CharacterStats : MonoBehaviour
         int _fireDamage = fireDamage.GetValue();
         int _iceDamage = iceDamage.GetValue();
         int _lightningDamage = lightningDamage.GetValue();
-
+        Debug.Log(_fireDamage);
         int totalMagicalDamage = _fireDamage + _iceDamage + _lightningDamage + intelligence.GetValue();
 
         totalMagicalDamage = CheckTargetResitance(_targetStats, totalMagicalDamage);
@@ -209,7 +209,7 @@ public class CharacterStats : MonoBehaviour
             igniteTimer = alimentDuration;
             fx.IgniteFxFor(alimentDuration);
         }
-        if(_chill && canApplyChill)
+        if (_chill && canApplyChill)
         {
             isChilled = _chill;
             chilledTimer = alimentDuration;
@@ -220,7 +220,7 @@ public class CharacterStats : MonoBehaviour
         }
         if (_shock && canApplyShock)
         {
-            if(!isShocked)
+            if (!isShocked)
             {
                 ApplyShock(_shock);
 
@@ -236,7 +236,7 @@ public class CharacterStats : MonoBehaviour
 
     public void ApplyShock(bool _shock)
     {
-        if(isShocked)
+        if (isShocked)
             return;
         isShocked = _shock;
         shockedTimer = alimentDuration;
@@ -284,7 +284,7 @@ public class CharacterStats : MonoBehaviour
             totalEvation += 20;
         if (Random.Range(0, 100) < totalEvation)
         {
-            
+
             return true;
         }
         return false;
@@ -308,7 +308,7 @@ public class CharacterStats : MonoBehaviour
     {
         int totalCriticalRate = critRate.GetValue() + agility.GetValue();
 
-        if(Random.Range(0,100) <= totalCriticalRate)
+        if (Random.Range(0, 100) <= totalCriticalRate)
         {
             return true;
         }
@@ -316,7 +316,7 @@ public class CharacterStats : MonoBehaviour
     }
     private int CalculateCriticalDamage(int _damage)
     {
-        float totalCritDamage = (critDamage.GetValue() + strengh.GetValue()) *.01f;
+        float totalCritDamage = (critDamage.GetValue() + strengh.GetValue()) * .01f;
         float totalcritDamage = _damage * totalCritDamage;
         return Mathf.RoundToInt(totalcritDamage);
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Clone_Skill : Skill
 {
+
     [SerializeField] private GameObject clonePrefab;
     [SerializeField] private float cloneDuration;
     [Space]
@@ -29,7 +30,7 @@ public class Clone_Skill : Skill
 
         GameObject newClone = Instantiate(clonePrefab);
         newClone.GetComponent<Clone_Skill_Controller>().
-            SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemy(newClone.transform), canDuplitateClone, changeToDuplicate,player);
+            SetupClone(_clonePosition, cloneDuration, canAttack, _offset, FindClosestEnemyClone(), canDuplitateClone, changeToDuplicate,player);
     }
 
     public void CreateCloneOnDashStart()

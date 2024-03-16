@@ -21,21 +21,22 @@ public class Clone_Skill_Controller : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         anim = GetComponent<Animator>();
     }
+
     private void Update()
     {
         cloneTimer -= Time.deltaTime;
-        if(cloneTimer < 0)
+        if (cloneTimer < 0)
         {
-            sr.color = new Color(1,1,1, sr.color.a - (Time.deltaTime* colorLoosingSpeed));
-            if(sr.color.a < 0)
+            sr.color = new Color(1, 1, 1, sr.color.a - (Time.deltaTime * colorLoosingSpeed));
+            if (sr.color.a < 0)
             {
                 Destroy(gameObject);
             }
         }
     }
-    public void SetupClone(Transform _newTransform,float _cloneduration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate, float _changeToDuplicate, Player _player)
+    public void SetupClone(Transform _newTransform, float _cloneduration, bool _canAttack, Vector3 _offset, Transform _closestEnemy, bool _canDuplicate, float _changeToDuplicate, Player _player)
     {
-        if(_canAttack)
+        if (_canAttack)
         {
             anim.SetInteger("AttackNumber", Random.Range(1, 3));
         }
@@ -43,9 +44,9 @@ public class Clone_Skill_Controller : MonoBehaviour
         cloneTimer = _cloneduration;
         player = _player;
         closestEnemy = _closestEnemy;
+        FaceClosestTarget();
         canDulicateClone = _canDuplicate;
         chanceToDuplicate = _changeToDuplicate;
-        FaceClosestTarget();
     }
     public void AnimationTrigger()
     {
@@ -64,8 +65,8 @@ public class Clone_Skill_Controller : MonoBehaviour
 
                 if (canDulicateClone)
                 {
-                    if(Random.Range(0, 100) < chanceToDuplicate)
-                    {                     
+                    if (Random.Range(0, 100) < chanceToDuplicate)
+                    {
                         SkillManager.instance.clone.CreateClone(hit.transform, new Vector3(2f * facingDir, 0));
                     }
                 }
@@ -75,14 +76,14 @@ public class Clone_Skill_Controller : MonoBehaviour
     }
     public void FaceClosestTarget()
     {
-        if (closestEnemy != null)
+        if (closestEnemy != null)         
         {
-            if(transform.position.x > closestEnemy.position.x)
+            if (transform.position.x > closestEnemy.position.x)
             {
-                Debug.Log("Atasdfas");
+                Debug.Log("la sao v");
                 facingDir = -1;
                 transform.Rotate(0, 180, 0);
-               
+
             }
         }
     }
